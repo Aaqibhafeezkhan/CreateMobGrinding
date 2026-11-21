@@ -174,9 +174,18 @@ idea {
     }
 }
 
+// Release notes are read from Changelogs/<version>.md: publishing stops if that file is missing
+def changelogFile = file("Changelogs/${mod_version}.md")
+if (!changelogFile.exists() && gradle.startParameter.taskNames.any { it.toLowerCase().contains("publishmods") }) {
+    throw new GradleException("Missing changelog: create Changelogs/${mod_version}.md before publishing")
+}
+def releaseChangelog = changelogFile.exists() ? changelogFile.getText("UTF-8") : ""
+
 publishMods {
     file = jar.archiveFile
-    changelog = "Release $mod_version"
+    changelog = releaseChangelog
+    // DRY_RUN=true builds and checks the release without uploading anything
+    dryRun = providers.environmentVariable("DRY_RUN").map { it == "true" }.orElse(false)
     type = STABLE
     modLoaders.add("neoforge")
 
@@ -193,5 +202,14 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "XwIkHYnz"
         minecraftVersions.add(minecraft_version)
+    }
+
+    // GitHub release with the jar and the same changelog; the token is provided by GitHub Actions
+    github {
+        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+        repository = "Manny-Minecraft/CreateMobGrinding"
+        commitish = "mc1.21.1/dev"
+        tagName = "v${mod_version}"
+        displayName = "${mod_version}"
     }
 }

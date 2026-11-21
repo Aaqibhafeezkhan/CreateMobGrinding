@@ -1,5 +1,11 @@
 name: Publish to CurseForge/ModRinth
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: check the release without publishing it"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,4 +34,6 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: ./gradlew build publishMods
