@@ -1,0 +1,20 @@
+{
+  "parent": "createmobgrinding:use_shard",
+  "display": {
+    "icon": {
+      "id": "createmobgrinding:mob_spawner_chunk"
+    },
+    "title": {
+      "translate": "advancement.createmobgrinding.stack_chunks.title"
+    },
+    "description": {
+      "translate": "advancement.createmobgrinding.stack_chunks.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "manual": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

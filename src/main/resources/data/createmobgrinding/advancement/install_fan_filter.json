@@ -1,0 +1,19 @@
+{
+  "parent": "createmobgrinding:craft_grinder",
+  "display": {
+    "icon": {
+      "id": "createmobgrinding:fan_filter_upgrade"
+    },
+    "title": {
+      "translate": "advancement.createmobgrinding.install_fan_filter.title"
+    },
+    "description": {
+      "translate": "advancement.createmobgrinding.install_fan_filter.desc"
+    }
+  },
+  "criteria": {
+    "manual": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

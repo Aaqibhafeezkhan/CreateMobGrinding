@@ -1,0 +1,19 @@
+{
+  "parent": "createmobgrinding:use_shard",
+  "display": {
+    "icon": {
+      "id": "createmobgrinding:spawner_chunk_bag"
+    },
+    "title": {
+      "translate": "advancement.createmobgrinding.use_chunk_bag.title"
+    },
+    "description": {
+      "translate": "advancement.createmobgrinding.use_chunk_bag.desc"
+    }
+  },
+  "criteria": {
+    "manual": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

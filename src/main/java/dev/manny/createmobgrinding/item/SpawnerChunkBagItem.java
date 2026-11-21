@@ -87,6 +87,7 @@ public class SpawnerChunkBagItem extends Item {
      * clicking a chunk swaps it with the one inside that spawner.
      */
     public static void open(ServerPlayer player, InteractionHand hand, @Nullable BlockPos spawnerPos) {
+        dev.manny.createmobgrinding.util.ModAdvancements.award(player, dev.manny.createmobgrinding.util.ModAdvancements.USE_CHUNK_BAG);
         Component title = Component.translatable("container.createmobgrinding.spawner_chunk_bag");
         if (spawnerPos != null && player.level().getBlockEntity(spawnerPos) instanceof RotationalMobSpawnerBlockEntity spawnerBE) {
             ResourceLocation current = spawnerBE.inventory.getStackInSlot(0).get(ModDataComponents.SPAWNER_ENTITY.get());

@@ -63,8 +63,17 @@ public class RotationalMobGrinderBlockEntity extends KineticBlockEntity {
     public void addBehaviours(List<com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
         vacuumFilter = new com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour(this,
-                new com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform((state, side) -> side == getFilterSide(state)))
-                .onlyActiveWhen(this::hasVacuumUpgrade);
+                new com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform((state, side) -> side == getFilterSide(state))) {
+            // Create sets the filter here on the server, the only place that knows the player
+            @Override
+            public void onShortInteract(net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand,
+                                        net.minecraft.core.Direction side, net.minecraft.world.phys.BlockHitResult hitResult) {
+                super.onShortInteract(player, hand, side, hitResult);
+                if (!player.level().isClientSide && !getFilter().isEmpty()) {
+                    dev.manny.createmobgrinding.util.ModAdvancements.award(player, dev.manny.createmobgrinding.util.ModAdvancements.VACUUM_FILTER);
+                }
+            }
+        }.onlyActiveWhen(this::hasVacuumUpgrade);
         vacuumFilter.setLabel(Component.translatable("createmobgrinding.grinder.vacuum_filter"));
         behaviours.add(vacuumFilter);
     }

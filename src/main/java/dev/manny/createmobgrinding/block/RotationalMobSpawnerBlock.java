@@ -81,6 +81,9 @@ public class RotationalMobSpawnerBlock extends KineticBlock implements IBE<Rotat
                             return net.minecraft.world.ItemInteractionResult.SUCCESS;
                         }
                         spawnerBE.inventory.setStackInSlot(0, current.copyWithCount(current.getCount() + 1));
+                        if (current.getCount() + 1 >= spawnerBE.inventory.getSlotLimit(0)) {
+                            dev.manny.createmobgrinding.util.ModAdvancements.award(player, dev.manny.createmobgrinding.util.ModAdvancements.STACK_CHUNKS);
+                        }
                         if (!player.isCreative()) {
                             stack.shrink(1);
                         }

@@ -52,6 +52,7 @@ public class FanFilterEvents {
                 return;
             }
             setFilter(fan, holder, FanFilterMode.ITEMS);
+            dev.manny.createmobgrinding.util.ModAdvancements.award(player, dev.manny.createmobgrinding.util.ModAdvancements.INSTALL_FAN_FILTER);
             if (!player.isCreative()) stack.shrink(1);
             notifyMode(player, FanFilterMode.ITEMS);
             level.playSound(null, event.getPos(), SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);

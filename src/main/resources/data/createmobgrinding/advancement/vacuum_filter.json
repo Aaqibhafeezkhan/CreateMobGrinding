@@ -1,0 +1,19 @@
+{
+  "parent": "createmobgrinding:craft_grinder",
+  "display": {
+    "icon": {
+      "id": "createmobgrinding:grinder_upgrade_vacuum"
+    },
+    "title": {
+      "translate": "advancement.createmobgrinding.vacuum_filter.title"
+    },
+    "description": {
+      "translate": "advancement.createmobgrinding.vacuum_filter.desc"
+    }
+  },
+  "criteria": {
+    "manual": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
