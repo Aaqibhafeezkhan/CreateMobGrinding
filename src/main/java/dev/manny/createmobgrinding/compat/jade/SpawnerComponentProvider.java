@@ -33,6 +33,11 @@ public enum SpawnerComponentProvider implements IBlockComponentProvider, IServer
                     tooltip.add(Component.translatable("tooltip.createmobgrinding.mob_chunk.entity_type", Component.translatable(net.minecraft.Util.makeDescriptionId("entity", entityId))).withStyle(net.minecraft.ChatFormatting.GRAY));
                 }
             }
+            if (serverData.contains("ChunkCount")) {
+                tooltip.add(Component.translatable("tooltip.createmobgrinding.spawner.chunks",
+                        serverData.getInt("ChunkCount"), serverData.getInt("MaxChunks"), serverData.getInt("MobsPerSpawn"))
+                        .withStyle(net.minecraft.ChatFormatting.GRAY));
+            }
         }
     }
 
@@ -40,12 +45,18 @@ public enum SpawnerComponentProvider implements IBlockComponentProvider, IServer
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
         if (accessor.getBlockEntity() instanceof RotationalMobSpawnerBlockEntity spawnerBE) {
             tag.putFloat("SpawnProgress", spawnerBE.getSpawnProgress());
+            // Needed by the progress line above, which never showed without it
+            tag.putFloat("MaxSpawnProgress", (float) spawnerBE.getSpawnThreshold());
             
             ItemStack chunk = spawnerBE.inventory.getStackInSlot(0);
             if (!chunk.isEmpty()) {
                 ResourceLocation entityId = chunk.get(ModDataComponents.SPAWNER_ENTITY.get());
                 if (entityId != null) {
                     tag.putString("SpawnerEntity", entityId.toString());
+                    // Server-side values, so Jade shows the server config and not the player's
+                    tag.putInt("ChunkCount", chunk.getCount());
+                    tag.putInt("MaxChunks", dev.manny.createmobgrinding.config.ModConfigs.COMMON.maxStackedChunks.get());
+                    tag.putInt("MobsPerSpawn", spawnerBE.getMobsPerSpawn());
                     java.util.List<? extends String> blacklist = dev.manny.createmobgrinding.config.ModConfigs.COMMON.spawnerBlacklist.get();
                     if (blacklist.contains(entityId.toString())) {
                         tag.putBoolean("Blacklisted", true);
