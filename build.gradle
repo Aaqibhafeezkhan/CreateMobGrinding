@@ -209,7 +209,7 @@ publishMods {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         repository = "Manny-Minecraft/CreateMobGrinding"
         commitish = "mc1.21.1/dev"
-        tagName = "v${mod_version}"
-        displayName = "${mod_version}"
+        tagName = "mc${minecraft_version}-${mod_version}"
+        displayName = "Create: Mob Grinding ${mod_version} for mc${minecraft_version}"
     }
 }
