@@ -174,10 +174,10 @@ idea {
     }
 }
 
-// Release notes are read from Changelogs/<version>.md: publishing stops if that file is missing
-def changelogFile = file("Changelogs/${mod_version}.md")
+// Release notes are read from changelogs/<version>.md: publishing stops if that file is missing
+def changelogFile = file("changelogs/${mod_version}.md")
 if (!changelogFile.exists() && gradle.startParameter.taskNames.any { it.toLowerCase().contains("publishmods") }) {
-    throw new GradleException("Missing changelog: create Changelogs/${mod_version}.md before publishing")
+    throw new GradleException("Missing changelog: create changelogs/${mod_version}.md before publishing")
 }
 def releaseChangelog = changelogFile.exists() ? changelogFile.getText("UTF-8") : ""
 
