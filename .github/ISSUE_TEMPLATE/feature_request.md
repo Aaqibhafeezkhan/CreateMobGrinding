@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Create: Mob Grinding
+about: "Suggest an idea for Create: Mob Grinding"
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''

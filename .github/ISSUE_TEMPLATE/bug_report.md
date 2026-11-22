@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve Create: Mob Grinding
+about: "Create a report to help us improve Create: Mob Grinding"
 title: '[BUG] '
 labels: bug
 assignees: ''
